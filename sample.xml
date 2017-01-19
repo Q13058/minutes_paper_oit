@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+		<Fruit id="001">
+			<Name>リンゴ</Name>
+			<From>青森</From>
+		</Fruit>
+		<Fruit id="002">
+			<Name>バナナ</Name>
+			<From>沖縄</From>
+		</Fruit>
+		<Fruit id="003">
+			<Name>ブドウ</Name>
+			<From>山梨</From>
+		</Fruit>
+		<Fruit id="004">
+			<Name>イチゴ</Name>
+			<From>栃木</From>
+		</Fruit>
+	</root>
+
+

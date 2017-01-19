@@ -1,0 +1,50 @@
+/* header */
+
+#top-head {
+  background  :#222521;
+  position: fixed;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px 0 0;
+  line-height: 1;
+  z-index: 999;
+  top: 0%;
+  height: 5%;
+}
+
+#top-head:after {
+  content: "";
+  display: block;
+  background: #fff;
+  margin: 0px auto 0;
+}
+
+#top-head a,#top-head {
+  color: #000;
+  text-decoration: none;
+}
+
+#top-bottom3 {
+  background  :#222521;
+  position: fixed;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px 0 0;
+  line-height: 1;
+  z-index: 999;
+  bottom: 0%;
+  right: 0%;
+  height: 5%;
+}
+
+.top-bottom2:after {
+  content: "";
+  display: block;
+  background: #fff;
+  margin: 0px auto 0;
+}
+
+#top-bottom3 a,#top-bottom3 {
+  color: #000;
+  text-decoration: none;
+}
