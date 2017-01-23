@@ -84,11 +84,10 @@ $(function(){
 		$query = mysql_query($sql, $conn);
 		$row=mysql_fetch_object($query);
 
-		$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row->school_date}' ORDER BY `school_date`";
+		$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row->school_date}' AND `lecture` = \"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
 		//echo $sql2;
 
 		// SQL文の実行
-
 
 		$query2 = mysql_query($sql2, $conn);
 		$row2=mysql_fetch_object($query2);
@@ -105,7 +104,7 @@ echo<<<HTML
 		padding: 0px 0 0 0;
 		line-height: 1;
 		z-index: 999;
-		margin-left: 380px; //これ神
+		margin-left: 380px;
 		height: 5%;"
 		>
 		<table border="1" width = "150px">
@@ -201,7 +200,7 @@ HTML;
 		 //$sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND lecture = "' . $_SESSION['lecture'] . '" ORDER BY rgb DESC';
 		 //$sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" ORDER BY `color`.`rgb` DESC';
 		 //$sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date,rgb FROM qanda, color WHERE delete_flag!="1" AND qanda.school_date = "' . $id . '" AND lecture = "' . $_SESSION['lecture'] . '" ORDER BY rgb > "000000" DESC';
-		 $sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb FROM qanda, color WHERE qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" AND color.lecture = "' . $_SESSION['lecture'] . '" ORDER BY rgb DESC';
+		 $sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" ORDER BY `color`.`rgb` DESC';
 		 //echo "<br>".$sql3;
 
 
@@ -221,13 +220,15 @@ HTML;
 		if(!$row3->column3)$row3->column3 = '-';
 		if(!$row3->column4)$row3->column4 = '-';
 
-	$sql4 = "SELECT DISTINCT id,`question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` , `lecture` FROM `question` WHERE `school_date`='{$row3->school_date}' AND `lecture` = \"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
+	//$sql4 = "SELECT DISTINCT id,`question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` , `lecture` FROM `question` WHERE `school_date`='{$row3->school_date}' AND `lecture` = \"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
+	$sql4 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row3->school_date}' AND `lecture` = \"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
+	//$sql4 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row3->school_date}' AND `lecture`=\"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
 	//echo "<br><br><br><br><br>".$sql4;
 	$query4 = mysql_query($sql4, $conn);
 	// 未回答などは非表示
 		while($row4 = mysql_fetch_object($query4)){
 
-			$sql5 = "SELECT DISTINCT number ,`school_date`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row3->school_date}' AND `number`='{$row3->number}' AND `column_color`='{$row3->answer}'  ORDER BY `school_date`";
+			$sql5 = "SELECT DISTINCT number ,`school_date`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row3->school_date}' AND `number`='{$row3->number}' AND `column_color`='{$row3->answer}' AND `lecture` = \"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
 			//SELECT `school_date`, `number`, `rgb`, `column_color` FROM `color` WHERE `school_date`='2016-10-11' AND `number`='N14010' AND `column_color`='命令のフェッチだけでなく、データの読み書きもあります。' ORDER BY `school_date`
 			//echo "<br>".$sql5."<br>";
 		  $query5 = mysql_query($sql5, $conn);
@@ -240,8 +241,6 @@ HTML;
 		  	$color=dechex($color);
 		  }
 
-			$num = $row4->count;
-			if($num <=4) $num =4;
 
 			// 自分のミニッツペーパーには水色で色つけ
 				echo '<tbody>';

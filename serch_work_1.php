@@ -102,7 +102,7 @@ $(function(){
 				padding: 0px 0 0 0;
 				line-height: 1;
 				z-index: 999;
-				margin-left: 380px; //これ神
+				margin-left: 380px;
 				height: 5%;"
 				>
         <table border="1" width = "150px">
