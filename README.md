@@ -20,7 +20,9 @@
 ■「color」テーブルの設定   
 　「color」テーブルは、エクセルファイル内のセルの色情報を閲覧システムに反映し、その色情報が反映されているセルを上に表示させるようするために必要な設定である。  
   「color」テーブルの構造  
+
 ###
+
   | 名前 | データ型 | 照合状態 | その他 |
   |:-------------|:------------|:----------------|:---------------|
   | id(主キー)    | int(11)     |                 | AUTO_INCREMENT |
@@ -30,7 +32,18 @@
   | column_color | int(11)     | utf8_general_ci |                |
   | time         | time        |                 |                |
   | lecture      | varchar(64) | utf8_general_ci |                |
+
 ###
+
+| Left align | Right align | Center align |
+|:-----------|------------:|:------------:|
+| This       |        This |     This     |
+| column     |      column |    column    |
+| will       |        will |     will     |
+| be         |          be |      be      |
+| left       |       right |    center    |
+| aligned    |     aligned |   aligned    |
+
 ■「qanda」テーブルの設定
   「qanda」テーブルは、ミニッツペーパーにおける学生の回答（質問、授業のまとめ）と、それに対する教員の回答を保存する場所である。
   「qanda」テーブルの構造  
@@ -87,6 +100,6 @@
 | DATABASE     | mp          |
 
 MySQLの設定
-① webブラウザで「（webサーバのアドレス）/phpMyAdmin/」へアクセスし、ログインする。
-② 「mp」データベースを選択し、SQLタブをクリックする。
+① webブラウザで「（webサーバのアドレス）/phpMyAdmin/」へアクセスし、ログインする。  
+② 「mp」データベースを選択し、SQLタブをクリックする。  
 ③ 入力フォーマットに「SEL GLOBAL sql_mode=’’」を入力し、実行ボタンを押す。
