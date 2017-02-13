@@ -23,15 +23,15 @@
 
 ###
 
-  | 名前 | データ型 | 照合状態 | その他 |
-  |:-------------|:------------|:----------------|:---------------|
-  | id(主キー)    | int(11)     |                 | AUTO_INCREMENT |
-  | school_date  | date        |                 |                |
-  | number       | varchar(7)  | utf8_general_ci |                |
-  | rgb          | int(11)     |                 |                |
-  | column_color | int(11)     | utf8_general_ci |                |
-  | time         | time        |                 |                |
-  | lecture      | varchar(64) | utf8_general_ci |                |
+| 名前 | データ型 | 照合状態 | その他 |
+|:-------------|:------------|:----------------|:---------------|
+| id(主キー)    | int(11)     |                 | AUTO_INCREMENT |
+| school_date  | date        |                 |                |
+| number       | varchar(7)  | utf8_general_ci |                |
+| rgb          | int(11)     |                 |                |
+| column_color | int(11)     | utf8_general_ci |                |
+| time         | time        |                 |                |
+| lecture      | varchar(64) | utf8_general_ci |                |
 
 ###
 
