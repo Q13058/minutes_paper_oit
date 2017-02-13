@@ -82,7 +82,7 @@
 ⑥ グローバル特権の「Check all」のチェックボックスをクリックする。  
 ⑦ webサーバ内の「/var/www/html/mp/teacher」のディレクトリにある「function.php」をテキストエディタで開く。  
 ⑧ ⑤で設定した情報を以下の表のように「function.php」内を書き換える。  
-
+  
 |:-------------|:------------|
 | IPADDRESS    | 127.0.0.1   |
 | USERNAME     | (User name) |
