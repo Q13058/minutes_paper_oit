@@ -21,7 +21,7 @@ if(isset($_SESSION['mseg'])){     #変数がセットされていること（NUL
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<title>認証</title>
+	<title>ミニッツペーパ閲覧システム ログイン認証</title>
   <script src="http//code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script><!--「bootstrap」を使用-->
   <script type="text/javascript">
@@ -57,7 +57,7 @@ if(isset($_SESSION['mseg'])){     #変数がセットされていること（NUL
     <hr style="position:absolute; width:100%; height:4px; background-color: #428bca; border: none; color: #428bca;">
   </div>
   <div style="height:1.7em">
-    <h1 style=" height: 40px; background-color: #428bca; color:white;"> ミニッツペーパー閲覧システム</h1>
+    <h1 style=" height: 40px; background-color: #428bca; color:white;"> ミニッツペーパ閲覧システム</h1>
   </div>
   <div style="height:3em">
     <hr style="position:absolute; width:100%; height:4px; background-color: #428bca; border: none; color: #428bca;">

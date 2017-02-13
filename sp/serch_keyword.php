@@ -27,14 +27,16 @@ include_once './serch_keyword_log.php';
     })(jQuery);
 </script>
 </head>
+<style>
+em.language {background:#fffb44;}
+</style>
 <?php
   $sort = $_POST["sort"];
 	$keyword = $_POST['keyword'];
 	echo '<h1><font size = "5">「' . $keyword . '」が含まれるミニッツペーパー</font></h1>';
 ?>
 <body>
-
-
+<ol id="keyword_check">
 <?php
 
 	// MySQLへの接続
@@ -56,7 +58,7 @@ include_once './serch_keyword_log.php';
 		}*/
 		// ソート
 		if ($sort != 'school_date') {
-			$sql = $sql . ' ORDER BY ' . $sort;
+			$sql = $sql . ' ORDER BY ' . $sort ."DESC";
 		}
 		// SQL文の実行
 		$query = mysql_query($sql, $conn);
@@ -64,7 +66,7 @@ include_once './serch_keyword_log.php';
 		// データの取出し
 		while($row=mysql_fetch_object($query)) {
 
-			$sql3 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `column_color`='{$row->answer}'  ORDER BY `school_date`";
+			$sql3 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `lecture`='{$lec}' AND `school_date`='{$row->school_date}' AND `column_color`='{$row->answer}'  ORDER BY `school_date`";
 			$query3 = mysql_query($sql3, $conn);
 			$row3 = mysql_fetch_object($query3);
 			$color=$row3->rgb;
@@ -84,14 +86,14 @@ include_once './serch_keyword_log.php';
 		if(!$row->column3)$row->column3 = '-';
 		if(!$row->column4)$row->column4 = '-';
 
-				$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row->school_date}' ORDER BY `school_date`";
+				$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `lecture`='{$lec}' AND `school_date`='{$row->school_date}' ORDER BY `school_date`";
 				$query2 = mysql_query($sql2, $conn);
 
 			while($row2 = mysql_fetch_object($query2)){
 				$num = $row2->count;
 				if($num ==0) $num =4;//表示数の数を初期化（４項目がデフォルト）
 
-				echo	"<div align = center>";
+				echo	"<div style=\" margin-left: auto; margin-right: auto;;\">";
 							if($row->number == $_SESSION['studentid']) echo "<table class= codermine >";
 							else  echo "<table class= coder>";
 							//色を指定
@@ -139,7 +141,7 @@ echo<<<HTML
 					<tr><th width = "50%">{$row2->question5}</th><td width = "50%">{$row->column1}</td></tr>
 					</tbody>
 					</table>
-					</div><br><br><br>
+					</div><br><br>
 HTML;
 					break;
 
@@ -167,7 +169,7 @@ HTML;
 echo<<<HTML
 					</tbody>
 					</table>
-					</div><br><br><br>
+					</div><br><br>
 HTML;
 					break;
 
@@ -189,7 +191,7 @@ echo<<<HTML
 					<tr><th width = "50%">{$row2->question7}</th><td width = "50%">{$row->column3}</td></tr>
 					</tbody>
 					</table>
-					</div><br><br><br>
+					</div><br><br>
 HTML;
 					break;
 
@@ -218,7 +220,7 @@ HTML;
 echo<<<HTML
 					</tbody>
 					</table>
-					</div><br><br><br>
+					</div><br><br>
 HTML;
 					break;
 				}
@@ -227,13 +229,59 @@ HTML;
 	}
 ?>
 </table>
-</div><br><br><br>
+</div><br>
 <br>
+</ol>
 <button class="btn" type="button" onclick="location.href='top.php'">メニューへ戻る</button>
 <button class="btn" type="button" onclick="location.href='keyserch.php'">検索画面へ戻る</button>
 <br><br>
 <?php
 	echo $_SESSION['lecture'] . 'のミニッツペーパー';
 ?>
+<script>
+
+// テキストノードだけを集める
+function getTextNode (node) {
+	return (3 === node.nodeType)
+				 ? [node]
+				 : (node.hasChildNodes ())
+					 ? Array.prototype.concat.apply ([],
+								Array.prototype.map.call (node.childNodes, arguments.callee))
+					 : [];
+}
+
+
+/*
+ * nodo に、this.text と同じ文字列が含まれていれば、this.referenceTag を複写して
+ * ノードを挿入する
+ */
+function wardWrap (node) {
+	var t, i;
+	var len = this.text.length;
+
+	while (-1 < (i = node.data.lastIndexOf (this.text))) {
+		node.parentNode.insertBefore (this.referenceTag.cloneNode (true), node.splitText (i + len));
+		node.data = node.data.substring (0, i);
+	}
+}
+
+
+/*
+ * 指定要素以下のテキストを集め、対象となる文字を指定ノードで置き換える
+ */
+function textMaker (target, referenceTag, matchStr) {
+	getTextNode (target).forEach (wardWrap,
+			{'referenceTag': referenceTag, 'text': matchStr || referenceTag.textContent});
+}
+
+var str = <?php echo json_encode($keyword); ?>;
+var em = document.createElement ('em');
+
+em.appendChild (document.createTextNode (str));
+em.className = 'language';
+
+textMaker (document.getElementById ('keyword_check'), em);
+
+</script>
 </body>
 </html>

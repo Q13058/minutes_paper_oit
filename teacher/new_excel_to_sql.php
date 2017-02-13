@@ -23,7 +23,7 @@ if (!move_uploaded_file($_FILES['upfile']['tmp_name'], $uploadfile)){
 	error(10);
 }*/
 
-$lec  = $_SESSION['lecture'];
+$lec=$_SESSION['lecture'];
 $teacher=$_SESSION['userid'];
 $count_question=0;
 $zip = new ZipArchive();
@@ -145,14 +145,13 @@ HTML;
 
 //追加
 	$value = $_POST["cell"];
-	echo '$value='.$value;
-		echo "読み込んだ列は";
+	//echo '$value='.$value;
+		//echo "読み込んだ列は";
 		foreach($value as $v){
 		 $args[] = $v; //読み込むセルの列をargsに代入
-			echo $v."列目"." ";
+			//echo $v."列目"." ";
 		}
-		echo "です。";
-
+		//echo "です。";
 //シートをCSVに変換
 $i = 1;
 

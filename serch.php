@@ -37,20 +37,20 @@ $(function(){
     })(jQuery);
 </script>
 
-<title>ミニッツペーパー一覧</title>
+<title>ミニッツペーパ一覧</title>
 </head>
 <header>
   <div id="pagebody">
     <div id="login">
-      Login: <?php echo $_SESSION['studentid']; ?>
+      Login: <?php echo $_SESSION['studentid']; $_SESSION['studentid']="Q13056"?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -63,7 +63,7 @@ $(function(){
 <?php
 	// タイトル
 	$cnt=0;
-	echo "<div id='date_serch'>" . $id . 'のミニッツペーパー<br>' . "</div>";
+	echo "<div id='date_serch'>" . $id . 'のミニッツペーパ<br>' . "</div>";
 	echo '<br><br>';
 
 	// MySQLへの接続
@@ -95,6 +95,45 @@ $(function(){
     if($num <=4) $num =4;
 
 echo<<<HTML
+	<side
+	style=
+	"background: #FFFFFF;
+	position: fixed;
+	width: 100px;
+	margin: 0 auto;
+	padding: 0px 0 0 0;
+	line-height: 1;
+	z-index: 999;
+	margin-left: -530px;
+	height: 5%;"
+	>
+		<table width = "150px" border="1" align = "center" style = "margin-left: auto; margin-right: auto; margin-bottom: 0.5em;">
+		<tr bgcolor="#8f63c2" style="color:#fff">
+		<td align="center"><b>講義日一覧<b/></td>
+		</tr>
+		<form action="" method="GET">
+HTML;
+
+				// データベースへの問い合わせSQL文
+				$sql_date = 'SELECT DISTINCT school_date FROM qanda WHERE  lecture = "' . $_SESSION['lecture'] . '" ORDER BY school_date DESC';
+				//echo $sql;
+				// SQL文の実行
+				$query_date = mysql_query($sql_date,$conn);
+				$_SESSION['$date_number'] = $query_date->school_date;
+				// データの取出し
+				while($row_date = mysql_fetch_object($query_date)) {
+					echo '<tr bgcolor="#eeeeee">';
+					echo '<td align="center"><b><a href= "serch.php?id=' . $row_date->school_date . '">' . $row_date->school_date .'</a></b></td>';
+					echo '</tr>';
+			}
+
+echo<<<HTML
+		</form>
+		</table>
+		</side>
+HTML;
+
+echo<<<HTML
 		<side
 		style=
 		"background: #FFFFFF;
@@ -109,7 +148,7 @@ echo<<<HTML
 		>
 		<table border="1" width = "150px">
 		<tr bgcolor="#CCCCFF">
-		<th style="text-align: center;">ミニッツペーパー<br>切り替え</th>
+		<th style="text-align: center;">ミニッツペーパ<br>切り替え</th>
 		</tr>
 HTML;
 
@@ -200,8 +239,42 @@ HTML;
 		 //$sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND lecture = "' . $_SESSION['lecture'] . '" ORDER BY rgb DESC';
 		 //$sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" ORDER BY `color`.`rgb` DESC';
 		 //$sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date,rgb FROM qanda, color WHERE delete_flag!="1" AND qanda.school_date = "' . $id . '" AND lecture = "' . $_SESSION['lecture'] . '" ORDER BY rgb > "000000" DESC';
-		 $sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" ORDER BY `color`.`rgb` DESC';
-		 //echo "<br>".$sql3;
+		 $sql3 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" AND qanda.number <> "' . $_SESSION['studentid'] . '" ORDER BY `color`.`rgb` DESC,`qanda`.`number` ASC';
+		 $sql3_1 = 'SELECT DISTINCT qanda.number, question, answer, comment, reply, column1, column2, column3, column4, qanda.school_date, rgb, column_color FROM qanda, color WHERE column_color = answer AND qanda.number = color.number AND qanda.school_date = color.school_date AND delete_flag!="1" AND qanda.school_date = "' . $id . '" AND qanda.lecture = "' . $_SESSION['lecture'] . '" AND qanda.number = "' . $_SESSION['studentid'] . '"';
+		 echo '<table border="1">';
+		 $query3_1 = mysql_query($sql3_1, $conn);
+		 $row3_1=mysql_fetch_object($query3_1);
+			 if(!$row3_1->question)$row3_1->question = '未回答';
+			 if(!$row3_1->answer)$row3_1->answer = '未回答';
+			 if(!$row3_1->comment)$row3_1->comment = '未回答';
+			 if(!$row3_1->reply)$row3_1->reply = '未回答';
+			 if(!$row3_1->column1)$row3_1->column1 = '未回答';
+			 if(!$row3_1->column2)$row3_1->column2 = '未回答';
+			 if(!$row3_1->column3)$row3_1->column3 = '未回答';
+			 if(!$row3_1->column4)$row3_1->column4 = '未回答';
+
+			 $sql5_1 = "SELECT DISTINCT number ,`school_date`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row3_1->school_date}' AND `number`='{$row3_1->number}' AND `column_color`='{$row3_1->answer}' AND `lecture` = \"". $_SESSION['lecture'] ."\" ORDER BY `school_date`";
+			 //SELECT `school_date`, `number`, `rgb`, `column_color` FROM `color` WHERE `school_date`='2016-10-11' AND `number`='N14010' AND `column_color`='命令のフェッチだけでなく、データの読み書きもあります。' ORDER BY `school_date`
+			 //echo "<br>".$sql5."<br>";
+			 $query5_1 = mysql_query($sql5_1, $conn);
+			 $row5_1 = mysql_fetch_object($query5_1);
+			 $color=$row5_1->rgb;
+			 //echo "color=> ".$color. "<br>";
+			 if($color=='0' || $color==NULL){
+				 $color=FFFFFF;//白
+			 }else{
+				 $color=dechex($color);
+			 }
+			 echo '<tbody>';
+			 echo '<tr bgcolor="#FFAA99">';
+		 //echo '<td width="6%">' . $row3->school_date .'</td>';
+			 echo '<td width="370px">' . nl2br($row3_1->question) .'</td>';
+		 ?>
+		 <td width="370px" bgcolor="<?php print $color;?>" ><?php print nl2br($row3_1->answer);?></td>
+		 <?php
+		 echo '</tr>';
+		 echo '</tbody>';
+		 echo '</table>';
 
 
 
@@ -242,10 +315,10 @@ HTML;
 		  }
 
 
-			// 自分のミニッツペーパーには水色で色つけ
+			// 自分のミニッツペーパには水色で色つけ
 				echo '<tbody>';
 			if($row3->number == $_SESSION['studentid']){
-				echo '<tr bgcolor="#EEEEFF">';
+				echo '<tr bgcolor="#CCCCFF">';
 			}else{
 				echo '<tr>';
 			}
@@ -266,8 +339,8 @@ echo '</div>';
 <br>
 <div id="pagebody">
 <ul id="menu">
-	<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
-	<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+	<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+	<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
 	<li class="menu01"><a href="keyserch.php">単語検索</a></li>
 	<li class="menu01"><a href="chart2.php">提出率のグラフ</a></li>
 	<li class="menu01"><a href="index.php">講義選択画面へ</a></li>

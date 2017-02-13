@@ -51,12 +51,12 @@ $xml3 = simplexml_load_string( $zip->getFromName('xl/sharedStrings.xml'));
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -82,11 +82,11 @@ if ($conn) {
 	$id = $_SESSION['studentid'];
 	$lec = $_SESSION['lecture'];
 	// データベースへの問い合わせSQL文
-	$sql = "SELECT `num`, `number`, `question`, `answer`, `comment`, `reply`, `column1`, `column2`, `column3`, `column4`,`school_date`,`present` FROM `qanda` WHERE `delete_flag`!='1' AND `number`='{$id}' AND `lecture`='{$lec}' ORDER BY school_date DESC";
+	$sql = "SELECT `num`, `number`, `question`, `answer`, `comment`, `reply`, `column1`, `column2`, `column3`, `column4`,`school_date`,`present`,`lecture` FROM `qanda` WHERE `delete_flag`!='1' AND `number`='{$id}' AND `lecture`='{$lec}' ORDER BY school_date DESC";
 	//$sql = 'SELECT * FROM `qanda` WHERE 1';
 	// SQL文の実行
 	$query = mysql_query($sql, $conn);
-	echo "<font size=6>" . $id. "のミニッツペーパー</font>";
+	echo "<font size=6>" . $id. "のミニッツペーパ</font>";
   echo "<br>";
 	$sql3 = "SELECT COUNT(*) as cnt FROM qanda WHERE  `delete_flag`!='1' AND  present='1' AND number='{$id}' AND `lecture`='{$lec}'";
 	$sql4 = "SELECT COUNT(DISTINCT `school_date`) as lec_num FROM `qanda`";
@@ -107,7 +107,7 @@ if ($conn) {
 		echo '<font size="6"  color="red"> 総提出率　'.$ave.' %</font>';
 	}
 	echo "<br>";
-	$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row->school_date}' ORDER BY `count`,`school_date`";
+	$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count`,`lecture` FROM `question` WHERE `school_date`='{$row->school_date}' AND `lecture`='{$lec}' ORDER BY `count`,`school_date`";
   $query2 = mysql_query($sql2, $conn);
 	$row2=mysql_fetch_object($query2);
 	$tmp_question=$row2->question1;
@@ -122,7 +122,7 @@ if ($conn) {
 		if(!$row->column2)$row->column2 = '-';
 		if(!$row->column3)$row->column3 = '-';
 		if(!$row->column4)$row->column4 = '-';
-		$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row->school_date}' ORDER BY `count`,`school_date`";
+		$sql2 = "SELECT `question1`, `question2`, `question3`, `question4`, `question5`, `question6`, `question7`, `question8`, `school_date`, `count` FROM `question` WHERE `school_date`='{$row->school_date}' AND `lecture`='{$lec}' ORDER BY `count`,`school_date`";
 		$query2 = mysql_query($sql2, $conn);
 		while($row2 = mysql_fetch_object($query2)){
 			$tmp2_question=$row2->question1;
@@ -132,7 +132,7 @@ if ($conn) {
 			 $num =4;
 			}
 
-			$sql5 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `number`='{$row->number}' AND `column_color`='{$row->answer}'  ORDER BY `school_date`";
+			$sql5 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `number`='{$row->number}' AND `column_color`='{$row->answer}' AND `lecture`='{$lec}' ORDER BY `school_date`";
 		  $query5 = mysql_query($sql5, $conn);
 		  $row5 = mysql_fetch_object($query5);
 		  $color=$row5->rgb;
@@ -142,7 +142,7 @@ if ($conn) {
       	$color=dechex($color);
       }
 
-			$sql6 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `number`='{$row->number}' AND `column_color`='{$row->reply}'  ORDER BY `school_date`";
+			$sql6 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `number`='{$row->number}' AND `column_color`='{$row->reply}' AND `lecture`='{$lec}' ORDER BY `school_date`";
 			$query6 = mysql_query($sql6, $conn);
 			$row6 = mysql_fetch_object($query6);
 			$color2=$row6->rgb;
@@ -152,7 +152,7 @@ if ($conn) {
       	  $color2=dechex($color2);
       }
 
-			$sql7 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `number`='{$row->number}' AND `column_color`='{$row->column2}'  ORDER BY `school_date`";
+			$sql7 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `number`='{$row->number}' AND `column_color`='{$row->column2}' AND `lecture`='{$lec}' ORDER BY `school_date`";
 			$query7 = mysql_query($sql7, $conn);
 			$row7 = mysql_fetch_object($query7);
 			$color3=$row7->rgb;

@@ -31,12 +31,12 @@ ini_set( 'display_errors', 1 );#エラーがある際に表示
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -50,10 +50,13 @@ ini_set( 'display_errors', 1 );#エラーがある際に表示
 <form action="serch_keyword.php" method="POST">
 <input type="text" name="keyword" value="" size="40">
 <br><br>
+<input type="hidden" name="sort" value="school_date">
+<!--
 ■表示の順番を変更<br>
 <input type="radio" name="sort" value="school_date" checked>講義日
 <input type="radio" name="sort" value="question">質問
 <br><br>
+-->
 <button class="btn btn-primary" type="submit">
 <span class="glyphicon glyphicon glyphicon-search"></span>
  検索する
@@ -61,7 +64,7 @@ ini_set( 'display_errors', 1 );#エラーがある際に表示
 </form>
 <br><br><br>
 <?php
-	echo $_SESSION['lecture'] . 'のミニッツペーパー';
+	echo $_SESSION['lecture'] . 'のミニッツペーパ';
 ?>
 </body>
 </html>

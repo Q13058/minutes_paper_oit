@@ -24,7 +24,7 @@ if(!$_SESSION['studentid']){
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/main.css">
 <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-<title>ミニッツペーパー一覧</title>
+<title>ミニッツペーパ一覧</title>
 </head>
 <header>
   <div id="pagebody">
@@ -32,12 +32,12 @@ if(!$_SESSION['studentid']){
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -55,7 +55,7 @@ em.language {background:#fffb44;}
 <br>
 <?php
 $keyword = $_POST['keyword'];
-echo '「' . $keyword . '」が含まれるミニッツペーパー';
+echo '「' . $keyword . '」が含まれるミニッツペーパ';
 ?>
 <br>
 
@@ -77,9 +77,8 @@ if ($conn) {
 	mysql_select_db(DATABASE,$conn);
 	$sql = 'SELECT number, question, answer, comment, reply, column1, column2, column3, column4, school_date FROM qanda WHERE lecture = "' . $_SESSION['lecture'] . '" AND question <> "未回答"  AND question LIKE "%' . $keyword . '%" ';
 	//$sql = 'SELECT  lecture,question, answer, comment, reply, column1, column2, column3, column4 , school_date, num FROM qanda WHERE  lecture = "'.$_SESSION['lecture'].'" AND question LIKE "%' . $keyword . '%"';
-
 	if ($_POST['sort'] != 'school_date') {
-		$sql = $sql . ' ORDER BY ' . $_POST['sort'];
+		$sql = $sql . ' ORDER BY ' . $_POST['sort'] ."DESC";
 	}else{
 		$sql = $sql . ' ORDER BY `num`';
 	}
@@ -107,7 +106,7 @@ if ($conn) {
 	//echo $sql2;
 	$query2 = mysql_query($sql2, $conn);
 
-	$sql3 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `school_date`='{$row->school_date}' AND `column_color`='{$row->answer}'  ORDER BY `school_date`";
+	$sql3 = "SELECT `school_date`, `number`, `rgb`, `column_color`  FROM `color` WHERE `lecture`='{$lec}' AND `school_date`='{$row->school_date}' AND `column_color`='{$row->answer}'  ORDER BY `school_date`";
 
 	$query3 = mysql_query($sql3, $conn);
 
@@ -123,7 +122,7 @@ if ($conn) {
 		      	$color=dechex($color);
 		      }
 
-		 $sql6 = "SELECT `school_date`, `number`, `rgb`, `column_color` FROM `color` WHERE `school_date`='{$row->school_date}' AND `column_color`='{$row->reply}'  ORDER BY `school_date`";
+		 $sql6 = "SELECT `school_date`, `number`, `rgb`, `column_color` FROM `color` WHERE `lecture`='{$lec}' AND  `school_date`='{$row->school_date}' AND `column_color`='{$row->reply}'  ORDER BY `school_date`";
 
 							$query6 = mysql_query($sql6, $conn);
 							$row6 = mysql_fetch_object($query6);
@@ -134,7 +133,7 @@ if ($conn) {
 				      	  $color2=dechex($color2);
 				      }
 
-		$sql7 = "SELECT `school_date`, `number`, `rgb`, `column_color` FROM `color` WHERE `school_date`='{$row->school_date}' AND `column_color`='{$row->column2}'  ORDER BY `school_date`";
+		$sql7 = "SELECT `school_date`, `number`, `rgb`, `column_color` FROM `color` WHERE `lecture`='{$lec}' AND `school_date`='{$row->school_date}' AND `column_color`='{$row->column2}'  ORDER BY `school_date`";
 
 		$query7 = mysql_query($sql7, $conn);
 		$row7 = mysql_fetch_object($query7);
@@ -157,7 +156,7 @@ if ($conn) {
 		 $num =4;
 		}
 
-
+		echo '<center>';
 			switch ($num){
 				case "4":
 				//if($flag4==0){
@@ -408,6 +407,7 @@ if ($conn) {
 				echo "</table><br>";
 				break;
 			}
+			echo '</center>';
 		}
 	}
 
@@ -418,8 +418,8 @@ if ($conn) {
 <br>
 <div id="pagebody">
 <ul id="menu">
-	<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
-	<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+	<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+	<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
 	<li class="menu01"><a href="keyserch.php">単語検索</a></li>
 	<li class="menu01"><a href="chart2.php">提出率のグラフ</a></li>
 	<li class="menu01"><a href="index2.php">講義選択画面へ</a></li>

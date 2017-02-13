@@ -25,7 +25,7 @@ if (!file_exists($user_csv)) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="css/main.css">
 	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-	<title>自分のミニッツペーパ―</title>
+	<title>自分のミニッツペーパ</title>
 </head>
 <?php
 // タイトルの表示
@@ -43,12 +43,12 @@ $xml3 = simplexml_load_string( $zip->getFromName('xl/sharedStrings.xml'));
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart2.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -80,7 +80,7 @@ $xml3 = simplexml_load_string( $zip->getFromName('xl/sharedStrings.xml'));
 			//$sql = 'SELECT * FROM `qanda` WHERE 1';
 			// SQL文の実行
 			$query = mysql_query($sql, $conn);
-			echo "<font size=6>" . $studentid. "のミニッツペーパー</font>";
+			echo "<font size=6>" . $studentid. "のミニッツペーパ</font>";
       echo "<br>";
 		 	$sql3 = "SELECT COUNT(*) as cnt FROM qanda WHERE  `delete_flag`!='1' AND  present='1' AND number='{$studentid}' AND `lecture`='{$lec}'";
 			$sql4 = "SELECT COUNT(DISTINCT `school_date`) as lec_num FROM `qanda`";

@@ -1,11 +1,14 @@
 ﻿<?php
 session_start();
+include_once './function.php';
 $message_error = $_SESSION['mseg_error'];
 $message_error_admin = $_SESSION['mseg_error_admin'];
 $message_success = $_SESSION['mseg_success'];
 $message_delete = $_SESSION['mseg_delete'];
 $message_admin_success = $_SESSION['mseg_admin_success'];
 $message_admin_delete = $_SESSION['mseg_admin_delete'];
+$message_lecture_success = $_SESSION['mseg_lecture_success'];
+$message_lecture_error = $_SESSION['mseg_lecture_error'];
 
 if (!$_SESSION['su_id']) {
 	header("Location: ./login.php");
@@ -85,9 +88,9 @@ if (!$_SESSION['su_id']) {
 				?>
 				<ol>
 					<form method="POST" action="delete_user.php">
-						削除する管理者ID：
+						削除する教員ID：
 						<br>
-						<select name="user">
+						<select name="user" class="form-control" style="font-size:20px; height:50px; width: 50%;">
 							<?php
 							$user_dir = dirname(__FILE__) . '/user_data';
 							$i = 0;
@@ -104,7 +107,6 @@ if (!$_SESSION['su_id']) {
 							}
 							?>
 						</select>
-						<br>
 						<input type="radio" name="OK" value="ON">
 						本当に削除する
 						<input type="radio" name="OK" value="OFF" checked>
@@ -117,26 +119,95 @@ if (!$_SESSION['su_id']) {
 			<br>
 
 
+<!--
+			<li>
+				<b>全体の講義データ削除</b>
+				<?php //エラーメッセージの表示
+				if($message_lecture_error!=NULL){
+					echo "<br><font color='red'>".$message_lecture_error."</font><br>";
+					$_SESSION['mseg_lecture_error']=NULL;
+				}elseif($message_lecture_success!=NULL){
+					echo "<br><font color='blue'>".$message_lecture_success."</font><br>";
+					$_SESSION['mseg_lecture_success']=NULL;
+				}else{
+					echo "<br>";
+				}
+				?>
+				<ol>
+					<form action="admin_lecture_delete.php" method="POST">
+						<select name="lec" class="form-control" style="font-size:20px; height:50px; width: 50%;">
+		<?php
+			//csvファイルのチェック
+			$csv = dirname(__FILE__).'/admin_data/lecture.csv';					#すべての講義を管理している管理者用CSVファイル
+			$fp = fopen($csv,"r");
+			$lecture = fgetcsv_reg($fp,null,',','"');
+			mb_convert_variables("UTF-8", "SJIS", $lecture);#文字コード変更
+		//	$lecture = mb_convert_encoding($lecture, 'sjis','UTF-8');
+			fclose($fp);
+
+			$i = 1;
+			$check = 0;
+			//while(!empty($lecture[$i])){
+			//	echo '<option>'.$lecture[$i].'</option>';
+			//	$i++;
+			//}
+
+			if ( ( $handle = fopen ( $csv, "r" ) ) !== FALSE ) {
+				while ( ( $data = fgetcsv_reg( $handle, 1000, ",", '"' ) ) !== FALSE ) {
+					if ($check == 1){
+						$i = 0;
+					}
+					while ($i < count($data)) {
+						//mb_convert_encoding($data[$i], "SJIS", "UTF-8");
+						mb_convert_variables("UTF-8", "SJIS", $data[$i]);#文字コード変更
+						if($data[$i] != ""){
+							echo '<option>'.$data[$i].'</option>';
+						}
+						$i++;
+					}
+					$check = 1;
+					$i = 0;
+				}
+			fclose ( $handle );
+			}
+		?>
+				</select>
+				<input type="radio" name="OK" value="ON">
+				本当に削除する
+				<input type="radio" name="OK" value="OFF" checked>
+				削除しない
+				<br>
+				<button class="btn btn-danger" name="del_teacher" style="font-size: 20px; position: relative; left: 0px; top: 16px;text-align:center; text-align:center;">削除する</button>
+				</ol>
+			</li>
+			<br>
+
+
+-->
+
+
+
+
+
+
+
+
 
 			<li>
-				<b>管理者登録</b>
+				<b>管理者パスワード変更</b>
 				<?php //エラーメッセージの表示
 				if($message_error_admin!=NULL){
 					echo "<br><font color='red'>".$message_error_admin."</font><br>";
 					$_SESSION['mseg_error_admin']=NULL;
 				}elseif($message_admin_success!=NULL){
 					echo "<br><font color='blue'>".$message_admin_success."</font><br>";
-					$_SESSION['mseg_error_admin']=NULL;
+					$_SESSION['mseg_success_admin']=NULL;
 				}else{
 					echo "<br>";
 				}
 				?>
 				<ol>
-					<form method="POST" action="add_admin.php">
-						新規ユーザーID(半角英数字)：
-						<br>
-						<input type='text' name='new_id' autocomplete="off">
-						<br>
+					<form method="POST" action="admin_pass.php">
 						新規パスワード(半角英数字)：
 						<br>
 						<input type="password" name='new_pass' autocomplete="off">
@@ -145,53 +216,14 @@ if (!$_SESSION['su_id']) {
 						<br>
 						<input type="password" name='sub_new_pass' autocomplete="off">
 						<br>
-
-						<button class="btn btn-primary" style="font-size: 20px; position: relative; left: 0px; top: 16px;text-align:center; text-align:center;">新規管理者を登録</button>
+						<button class="btn btn-primary" style="font-size: 20px; position: relative; left: 0px; top: 16px;text-align:center; text-align:center;">管理者パスワードの変更</button>
 					</form>
 				</ol>
 			</li>
 			<br>
-			<li>
-				<b>管理者削除</b>
-				<?php //エラーメッセージの表示
-				if($message_admin_delete!=NULL){
-					echo "<br><font color='red'>".$message_admin_delete."</font><br>";
-					$_SESSION['mseg_admin_delete']=NULL;
-				}else{
-					echo "<br>";
-				}
-				?>
-				<ol>
-					<form method="POST" action="delete_admin.php">
-						削除する管理者ID：
-						<br>
-						<select name="admin">
-							<?php
-							$admin_dir = dirname(__FILE__) . '/admin_data';
-							$i = 0;
-							if ($admin_dir = opendir($admin_dir)) {
-								while (false !== ($filename = readdir($admin_dir))) {
-									if ($filename != "." && $filename != "..") {
-										//				echo $filename."<br>";
-										$array = explode(".", $filename);
-										$admin_array[$i] = $array[0];
-										echo '<option>' . $admin_array[$i] . '</option>';
-									}
-									$i++;
-								}
-							}
-							?>
-						</select>
-						<br>
-						<input type="radio" name="OK" value="ON">
-						本当に削除する
-						<input type="radio" name="OK" value="OFF" checked>
-						削除しない
-						<br>
-						<button class="btn btn-danger" name="del_teacher" style="font-size: 20px; position: relative; left: 0px; top: 16px;text-align:center; text-align:center;">削除する</button>
-					</form>
-				</ol>
-			</li>
+
+
+
 <!--
 			<li>
 				<b>学生登録</b>
@@ -236,7 +268,7 @@ if (!$_SESSION['su_id']) {
 						削除するユーザーID：
 						<br>
 						<select name="student_user">
-							<?php
+							<?php /*
 							$student_dir = dirname(__FILE__) . '/../user_data';
 							$i = 0;
 							if ($student_dir = opendir($student_dir)) {
@@ -250,6 +282,7 @@ if (!$_SESSION['su_id']) {
 									$i++;
 								}
 							}
+							*/
 							?>
 						</select>
 						<br>
@@ -267,7 +300,7 @@ if (!$_SESSION['su_id']) {
 		<hr>
 -->
 <form action='logout.php' method='post'>
-<button class="btn btn-primary" style="font-size: 20px; position: relative; left: 0px; top: 16px;text-align:center; text-align:center;">ログアウト</button>
+<button class="btn btn-danger" style="font-size: 20px; position: relative; left: 0px; top: 16px;text-align:center; text-align:center;">ログアウト</button>
 </form>
 	</div>
 	</body>

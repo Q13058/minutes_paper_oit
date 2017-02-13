@@ -77,11 +77,10 @@ echo<<<HTML
 					<tbody>
 					<tr>
 						<th width = "50%" height="60px" style = "background-color:#ffBB77;"><button class="list" type="button" onclick="#">設問</button></th>
-						<th width = "50%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'">質問など</button></th>
+						<th width = "50%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'">感想など</button></th>
 					</tr>
 					</tbody>
 					</table>
-					<br><br><br><br>
 HTML;
 }
 if($num2_1 == 6){
@@ -94,11 +93,10 @@ echo<<<HTML
 					<tr>
 						<th width = "33%" height="60px" style = "background-color:#ffBB77;"><button class="list" type="button" onclick="#"><font size="3vw">設問１</font></button></th>
 						<th width = "33%" height="60px"><button class="list" type="button" onclick="location.href='serch_work_1.php?id={$row_1->school_date}'"><font size="3vw">設問2</font></button></th>
-						<th width = "33%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">質問など</font></button></th>
+						<th width = "33%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">感想など</font></button></th>
 					</tr>
 					</tbody>
 					</table>
-					<br><br><br><br>
 HTML;
 }
 if($num2_1 == 8){
@@ -112,11 +110,10 @@ echo<<<HTML
 					<th width = "25%" height="60px" style = "background-color:#ffBB77;"><button class="list" type="button" onclick="#"><font size="3vw">設問1</font></button></th>
 					<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_work_1.php?id={$row_1->school_date}'"><font size="3vw">設問2</font></button></th>
 					<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_work_2.php?id={$row_1->school_date}'"><font size="3vw">設問3</font></button></th>
-					<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">質問など</font></button></th>
+					<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">感想など</font></button></th>
 					</tr>
 					</tbody>
 					</table>
-					<br><br>
 HTML;
 }
 
@@ -124,7 +121,7 @@ HTML;
 					//色選択（codermine：akairo ）
 					//if($row->number == $_SESSION['studentid']) echo "<table class= codermine >";
 					//else  echo "<table class = coder>";
-					echo "<br><br><br>";
+					echo "<br><br><br><br><br>";
 					echo "<table class = coder>";
 					//質問と「中西からの回答」を表示
 if($num2_1 == 4){

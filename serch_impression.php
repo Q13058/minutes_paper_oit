@@ -36,7 +36,7 @@ $(function(){
     })(jQuery);
 </script>
 
-<title>ミニッツペーパー一覧</title>
+<title>ミニッツペーパ一覧</title>
 </head>
 <header>
   <div id="pagebody">
@@ -44,12 +44,12 @@ $(function(){
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -62,7 +62,7 @@ $(function(){
 <?php
 	// タイトル
 	$cnt=0;
-	echo "<div id='date_serch'>" . $id . 'のミニッツペーパー<br>' . "</div>";
+	echo "<div id='date_serch'>" . $id . 'のミニッツペーパ<br>' . "</div>";
 	echo '<br><br>';
 
 	// MySQLへの接続
@@ -92,6 +92,46 @@ $(function(){
 		$num = $row2->count;
     if($num <=4) $num =4;
 
+
+echo<<<HTML
+						<side
+						style=
+						"background: #FFFFFF;
+						position: fixed;
+						width: 100px;
+						margin: 0 auto;
+						padding: 0px 0 0 0;
+						line-height: 1;
+						z-index: 999;
+						margin-left: -530px;
+						height: 5%;"
+						>
+						<table width = "150px" border="1" align = "center" style = "margin-left: auto; margin-right: auto; margin-bottom: 0.5em;">
+						<tr bgcolor="#8f63c2" style="color:#fff">
+						<td align="center"><b>講義日一覧<b/></td>
+						</tr>
+						<form action="" method="GET">
+HTML;
+
+		// データベースへの問い合わせSQL文
+		$sql_date = 'SELECT DISTINCT school_date FROM qanda WHERE  lecture = "' . $_SESSION['lecture'] . '" ORDER BY school_date DESC';
+		//echo $sql;
+		// SQL文の実行
+		$query_date = mysql_query($sql_date,$conn);
+		$_SESSION['$date_number'] = $query_date->school_date;
+		// データの取出し
+		while($row_date = mysql_fetch_object($query_date)) {
+			echo '<tr bgcolor="#eeeeee">';
+			echo '<td align="center"><b><a href= "serch.php?id=' . $row_date->school_date . '">' . $row_date->school_date .'</a></b></td>';
+			echo '</tr>';
+		}
+
+echo<<<HTML
+						</form>
+						</table>
+						</side>
+HTML;
+
 echo<<<HTML
     		<side
     		style=
@@ -108,7 +148,7 @@ echo<<<HTML
         <table border="1" width = "150px">
           <tr>
 					<tr bgcolor="#CCCCFF">
-					<th style="text-align: center;">ミニッツペーパー<br>切り替え</th>
+					<th style="text-align: center;">ミニッツペーパ<br>切り替え</th>
 					</tr>
 					<tr>
 HTML;
@@ -205,7 +245,7 @@ HTML;
 		echo '<td >-</td>';
 		echo '</tr>';
 		echo '<tr>';
-		// 自分のミニッツペーパーには黄色で色つけ
+		// 自分のミニッツペーパには黄色で色つけ
 		//if($row->number == $_SESSION['studentid'])echo '<tr bgcolor="#FFBB77">';
 		//else echo '<tr bgcolor="#CCCCFF">';
 		echo '<tr bgcolor="#CCCCFF">';
@@ -222,7 +262,7 @@ HTML;
 
 		case "6":
 			echo '</tr>';
-			// 自分のミニッツペーパーには黄色で色つけ
+			// 自分のミニッツペーパには黄色で色つけ
 			//if($row->number == $_SESSION['studentid'])echo '<tr bgcolor="#FFBB77">';
 			//else echo '<tr bgcolor="#CCCCFF">';
 			echo '<tr bgcolor="#CCCCFF">';
@@ -240,7 +280,7 @@ HTML;
                 echo '<td >-</td>';
                 echo '</tr>';
 		echo '<tr>';
-                // 自分のミニッツペーパーには黄色で色つけ
+                // 自分のミニッツペーパには黄色で色つけ
                 if($row->number == $_SESSION['studentid'])echo '<tr bgcolor="#FFBB77">';
                 else echo '<tr bgcolor="#CCCCFF">';
                 echo '<td width = "6%">' . $row2->school_date .'</td>';
@@ -259,7 +299,7 @@ HTML;
 		case "8":
                 echo '</tr>';
 		echo '<tr>';
-                // 自分のミニッツペーパーには黄色で色つけ
+                // 自分のミニッツペーパには黄色で色つけ
                 //if($row->number == $_SESSION['studentid'])echo '<tr bgcolor="#FFBB77">';
                 //else echo '<tr bgcolor="#CCCCFF">';
                 //echo '<td width = "6%">' . $row2->school_date .'</td>';
@@ -328,7 +368,7 @@ echo '<tr bgcolor="#CCCCFF">';
 			case "4":
       $reply = $row3->reply;
       if($reply!="-"){
-				// 自分のミニッツペーパーには水色で色つけ
+				// 自分のミニッツペーパには水色で色つけ
 				echo '<table border="1">';
 						echo '<tbody>';
 				if($row3->number == $_SESSION['studentid']){
@@ -352,7 +392,7 @@ echo '<tr bgcolor="#CCCCFF">';
 			case "5":
 				echo '<table border="1">';
 				echo '<tbody>';
-				// 自分のミニッツペーパーには水色で色つけ
+				// 自分のミニッツペーパには水色で色つけ
 				if($row3->number == $_SESSION['studentid']){
 					echo '<tr bgcolor="#EEEEFF">';
 				}else{
@@ -444,8 +484,8 @@ echo '</div>';
 <br>
 <div id="pagebody">
 <ul id="menu">
-	<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
-	<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+	<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+	<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
 	<li class="menu01"><a href="keyserch.php">単語検索</a></li>
 	<li class="menu01"><a href="chart2.php">提出率のグラフ</a></li>
 	<li class="menu01"><a href="index.php">講義選択画面へ</a></li>

@@ -1,6 +1,7 @@
 ﻿<?php
-	// セッションの開始
+session_cache_limiter('private_no_expire');
 	session_start();
+	// セッションの開始
 	$_SESSION['mseg'] = "";
 	$_SESSION['mseg_safe'] = "";
 	if($_SESSION['lecture'] == NULL){

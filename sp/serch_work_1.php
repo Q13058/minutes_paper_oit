@@ -75,7 +75,7 @@ echo<<<HTML
 					<tbody>
 					<tr>
 						<th width = "50%" height="60px" style = "background-color:#ffBB77;"><button class="list" type="button" onclick="#">設問</button></th>
-						<th width = "50%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'">質問など</button></th>
+						<th width = "50%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'">感想など</button></th>
 					</tr>
 					</tbody>
 					</table>
@@ -92,7 +92,7 @@ echo<<<HTML
 					<tr>
 						<th width = "33%" height="60px"><button class="list" type="button" onclick="location.href='serch.php?id={$row_1->school_date}'"><font size="3vw">設問１</font></button></th>
 						<th width = "33%" height="60px" style = "background-color:#ffBB77;"><button class="list" type="button" onclick="#"><font size="3vw">設問2</font></button></th>
-						<th width = "33%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">質問など</font></button></th>
+						<th width = "33%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">感想など</font></button></th>
 					</tr>
 					</tbody>
 					</table>
@@ -110,7 +110,7 @@ echo<<<HTML
 						<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch.php?id={$row_1->school_date}'"><font size="3vw">設問1</font></button></th>
 						<th width = "25%" height="60px" style = "background-color:#ffBB77;"><button class="list" type="button" onclick="#"><font size="3vw">設問2</font></button></th>
 						<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_work_2.php?id={$row_1->school_date}'"><font size="3vw">設問3</font></button></th>
-						<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">質問など</font></button></th>
+						<th width = "25%" height="60px"><button class="list" type="button" onclick="location.href='serch_impression.php?id={$row_1->school_date}'"><font size="3vw">感想など</font></button></th>
 					</tr>
 					</tbody>
 					</table>

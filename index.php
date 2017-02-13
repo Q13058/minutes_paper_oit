@@ -35,14 +35,14 @@ if(!$_SESSION['studentid']){
 		<h1>講義選択画面</h1><br>
 		<form action="mine_authenticate.php" method="POST">
 			講義を選んでください。<br><br>
-			<select name="lec">
+			<select name="lec" class="form-control" style="height:40px;  width: 70%;">
 <?php
 
 //echo "<br>".$_SESSION['studentid']."<br>";
 //このシステムを構成する全ての関数を格納したphpファイルをインクルード
 include_once './teacher/function.php';
 
-$lec_csv = dirname(__FILE__)."/teacher/user_data/Q13058.csv";
+$lec_csv = dirname(__FILE__).'/teacher/admin_data/lecture.csv';
 
 if($lec_csv){
 //echo $lec_csv;
@@ -113,7 +113,7 @@ echo"今は".$this_year."年度、".$month."月です。";
 */
 ?>
 			-->
-			<br><hr>
+			<hr>
 			<div class="form-group">
 				<button class="btn btn-primary">
   				<span class="glyphicon glyphicon-hand-right"> 次へ

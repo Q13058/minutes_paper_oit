@@ -1,7 +1,7 @@
 <?php
+session_cache_limiter('private_no_expire');
+session_start();// セッションの開始
 include_once './function.php';
-// セッションの開始
-session_start();
 // ログインチェック
 if(!$_SESSION['userid']){
 	// ログインフォーム画面へ

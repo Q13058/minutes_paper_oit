@@ -50,13 +50,12 @@
 		?>
 	<ul>
 				<li>■ミニッツペーパーの編集<br>
-				<li>Excelをアップする講義を選んでください<br>
+				<li>Excelをアップロードする講義名を選んでください<br>
 			<form action="cushion.php" method="POST">
 				<select name="lec" class="form-control" style="font-size:20px; height:50px; width: 50%;">
 <?php
 	//csvファイルのチェック
 	$lec_csv = dirname(__FILE__)."/user_data/".$_SESSION['userid'].".csv";
-	echo $lec_csv;
 	$fp = fopen($lec_csv,"r");
 	$lecture = fgetcsv_reg($fp,null,',','"');
 	mb_convert_variables("UTF-8", "SJIS", $lecture);#文字コード変更
@@ -96,7 +95,7 @@
 
 			</form>
 		</li>
-		<li>■新しく講義の追加<br>
+		<li>■新しく講義名の追加<br>
 		<li>追加する講義名を入力してください
 			<form action="add_lecture.php" method="POST">
 				<input type="text" name="lec_name" autocomplete="off" class="form-control" style="font-size:20px; height:50px; width: 50%;">
@@ -104,8 +103,9 @@
 			</form>
 		</li>
 <?php
+//echo $lec_csv;
 $str1= <<<EOT
-		<li>■講義の削除<br>
+		<li>■講義名の削除<br>
 		<li>削除する講義名を選んでください
 			<form action="delete_lecture.php" method="POST">
 				<select name="lec_name" class="form-control" style="font-size:20px; height:50px; width: 50%;">

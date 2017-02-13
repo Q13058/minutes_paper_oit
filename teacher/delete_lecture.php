@@ -21,6 +21,10 @@ $fp = fopen($csv, "r+");
 $data = fgetcsv_reg($fp,1000,',','"');
 fclose($fp);
 
+
+
+
+
 $fp = fopen($csv,"r+");
 $i = 1;
 $cnt = 1;
@@ -44,6 +48,48 @@ while (!empty($new_data[$i])) {
 	fwrite($fp, $new_data[$i] . ",");
 	$i++;
 }
+
+
+
+
+
+$csv = dirname(__FILE__).'/admin_data/lecture.csv';
+$fp = fopen($csv, "r+");
+$data = fgetcsv_reg($fp,1000,',','"');
+fclose($fp);
+
+$fp = fopen($csv,"r+");
+$i = 1;
+$cnt = 1;
+//0に格納されているのはパスワードだから消してはいけないので、回避措置。
+$new_data[0] = $data[0];
+
+$lec_name = $_POST['lec_name'];
+
+while (!empty($data[$i])) {
+	$data[$i] = mb_convert_encoding($data[$i], "UTF-8","SJIS");
+	if ($data[$i] !== $_POST['lec_name']) {
+		$new_data[$cnt++] = $data[$i];
+	}
+	$i++;
+}
+$fp = fopen($csv, "w");
+
+$i = 0;
+while (!empty($new_data[$i])) {
+	$new_data[$i] = mb_convert_encoding($new_data[$i], "SJIS","UTF-8");
+	fwrite($fp, $new_data[$i] . ",");
+	$i++;
+}
+
+
+
+
+
+
+
+
+
 
 /*	$data = file_get_contents($csv);
  $data = str_replace($_POST['lec_name'].",", "", $data);

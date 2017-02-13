@@ -13,7 +13,7 @@ if ($_POST['mode'] == '1') {
 }
 
 nomal:
-$user_id = strtoupper(substr($_POST['userid'], 2, 7));
+$user_id = $_POST['userid'];
 $_SESSION['mseg2'] = NULL;
 $user_csv = dirname(__FILE__) . "/user_data/" . $user_id . ".csv";
 if (!file_exists($user_csv)) {

@@ -1,4 +1,6 @@
 <?php
+session_cache_limiter('private_no_expire');
+session_start();// セッションの開始
 require_once "Mail.php";
 // エラー出力する場合
 ini_set( 'display_errors', 1 );
@@ -8,8 +10,6 @@ if((strpos($ua,'iPhone')!==false)||(strpos($ua,'iPod')!==false)||(strpos($ua,'An
   exit();
 }
 include_once './function.php';
-// セッションの開始
-session_start();
 // ログインチェック
 if(!$_SESSION['userid']){
 // ログインフォーム画面へ

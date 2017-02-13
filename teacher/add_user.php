@@ -1,5 +1,6 @@
 <?php
 ini_set( 'display_errors', 1 );#エラーがある際に表示
+header('Content-Type: text/html; charset=UTF-8');
 session_start();
 $_SESSION['mseg_error']=NULL;
 $_SESSION['mseg_error_admin']=NULL;
@@ -16,13 +17,12 @@ if (!$_SESSION['su_id']) {
 	exit();
 }
 
-$flag = true;
-
-if (!$_POST['new_id'] && $flag) {
+if (!$_POST['new_id']) {
 	//error(3);
 	$_SESSION['mseg_error'] = "IDが入力されていません。";
 	$flag = false;
 	header("Location: ./su_index.php");
+	exit;
 	//IDが入力されていません
 }
 
@@ -36,19 +36,19 @@ if ($_POST['new_pass'] !== $_POST['sub_new_pass']) {
 	//確認用とのパスワードが一致しません
 }
 */
-if (!$_POST['new_lec_01'] && $flag) {
+if (!$_POST['new_lec_01']) {
 	$_SESSION['mseg_error'] = "講義名が入力されていません。";
 	header("Location: ./su_index.php");
-	$flag = false;
+	exit();
 	//error(6);
 	//講義名が入力されていません
 }
 
-if (!is_hankaku($_POST['new_id'])&& $flag) {
+if (!is_hankaku($_POST['new_id'])) {
 	//error(7);
 	$_SESSION['mseg_error'] = "新しいIDが半角英数字ではありません。";
 	header("Location: ./su_index.php");
-	$flag = false;
+	exit();
 	//新しいIDが半角英数字ではありません
 }
 /*
@@ -65,10 +65,10 @@ if ($dir = opendir($dir)) {
 		if ($filename != "." && $filename != "..") {
 			$array = explode(".", $filename);
 			//				$user_array[$i] = $array[0];
-			if ($array[0] == $_POST['new_id'] && $flag) {
+			if ($array[0] == $_POST['new_id']) {
 				$_SESSION['mseg_error'] = "そのIDは既に存在しています。";
 				header("Location: ./su_index.php");
-				$flag = false;
+				exit;
 				//error(9);
 				//そのIDは既に存在しています。
 			}
@@ -77,7 +77,6 @@ if ($dir = opendir($dir)) {
 	}
 }
 
-if ($flag) {
 
 $idName = mb_convert_kana($_POST['new_id']);
 //$pass = mb_convert_kana($_POST['new_pass']);
@@ -113,6 +112,11 @@ $fp = fopen($new_csv, 'w');
 chmod($new_csv, 0777);
 //fwrite($fp, $_POST['new_pass'] . ",");
 
+$null="NULL";
+$null="\"$null\"";
+$null = mb_convert_encoding($null,"SJIS", "UTF-8");
+fwrite($fp, $null . ",");
+
 $lec=$_POST['new_lec_01'];
 $lec_01="\"$lec\"";
 $lec_01 = mb_convert_encoding($lec_01,"SJIS", "UTF-8");
@@ -143,7 +147,6 @@ if (!empty($_POST['new_lec_03'])) {
 	echo "講義名3：" . $_POST['new_lec_03'] . "<br>";
 }
 */
-}//エラー管理のフラグ
 ?>
 <html>
 	<head>

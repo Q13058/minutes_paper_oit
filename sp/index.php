@@ -32,7 +32,7 @@
 		<select name="lec" class="easy-select-box"  style="font-size: 17px;">
 		<?php
 		include_once './../teacher/function.php';
-		$lec_csv = dirname(__FILE__)."/../teacher/user_data/Q13058.csv";
+		$lec_csv = dirname(__FILE__).'/../teacher/admin_data/lecture.csv';
 
 		if($lec_csv){
 		//echo $lec_csv;

@@ -27,12 +27,16 @@ include_once '../teacher/function.php';
 <div id="form">
 <p class="form-title" style = "font-size:22px;">検索したい語句を入力してください。</p>
 <form action="serch_keyword.php" method="POST">
-<input type="text" name="keyword" value="" >
+<p>キーワードを入力</p><br>
+<center><input type="text" name="keyword" value=""></center>
+<input type="hidden" name="sort" value="school_date">
 <br><br><br>
+<!--
 <p>ソートの仕方</p><br>
 <input type="radio" name="sort" value="school_date" checked>講義日
 <input type="radio" name="sort" value="question">質問
 <br><br>
+-->
 <p class="submit"><input type="submit" value="検索する"></p>
 </form>
 </div>

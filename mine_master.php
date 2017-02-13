@@ -24,7 +24,7 @@ include "mine_log.php";
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/main.css">
 <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-<title>ミニッツペーパーを閲覧</title>
+<title>ミニッツペーパを閲覧</title>
 </head>
 
 <?php
@@ -70,12 +70,12 @@ $zip->open('QA0930.xlsx');
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -85,7 +85,7 @@ $zip->open('QA0930.xlsx');
 </header>
 <body>
 	<br>
-	<h1>教員用ミニッツペーパー閲覧ページ</h1>
+	<h1>教員用ミニッツペーパ閲覧ページ</h1>
 	<br>
 	<form action="" method="GET">
 <?php
@@ -158,8 +158,8 @@ if ($conn) {
 	<br><br>
   <div id="pagebody">
   <ul id="menu">
-  	<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
-  	<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+  	<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+  	<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
   	<li class="menu01"><a href="keyserch.php">単語検索</a></li>
   	<li class="menu01"><a href="chart2.php">提出率のグラフ</a></li>
   	<li class="menu01"><a href="index.php">講義選択画面へ</a></li>

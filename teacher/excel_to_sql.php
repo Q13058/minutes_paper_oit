@@ -169,9 +169,12 @@ echo<<<HTML
 -->
 </p>
 <hr>
+<input type="hidden" name='sheetcount' value="1"/>
+<!--
 アップロードするシート数を半角数字で入力してください。
-<input type="text" name='sheetcount' size="5" value="1"/>
-<br/><br/>
+<input type="hidden" name='sheetcount' size="5" value="1"/>
+-->
+
 
 <button class="btn btn-primary" style="font-size: 20px; position: relative; left: 0px; top: 8px;text-align:center; text-align:center;">アップロード実行</button>
 <!--

@@ -30,12 +30,12 @@ include_once './teacher/function.php';
       Login: <?php echo $_SESSION['studentid']; ?>
     </div>
   <div id="header">
-    <h1>ミニッツペーパー閲覧システム</h1>
+    <h1>ミニッツペーパ閲覧システム</h1>
   </div>
   <menu>
     <ul id="menu">
-			<li class="menu01"><a href="mine.php">自分のミニッツペーパー</a></li>
- 			<li class="menu01"><a href="date.php">全体のミニッツペーパー</a></li>
+			<li class="menu01"><a href="mine.php">自分のミニッツペーパ</a></li>
+ 			<li class="menu01"><a href="date.php">全体のミニッツペーパ</a></li>
  			<li class="menu01"><a href="keyserch.php">単語検索</a></li>
  			<li class="menu01"><a href="chart.php">提出率のグラフ</a></li>
  			<li class="menu01"><a href="index.php">講義選択画面へ</a></li>
@@ -47,7 +47,7 @@ include_once './teacher/function.php';
  <br>
 <table border="1" align = "center" style = "margin-left: auto; margin-right: auto; margin-bottom: 0.5em;">
 <tr bgcolor="#8f63c2" style="color:#fff">
-<td width = "300px" align="center"><b>講義日<b/></td>
+<td width = "300px" align="center"><b>講義日一覧<b/></td>
 </tr>
 <form action="" method="GET">
 <?php
@@ -77,7 +77,7 @@ include_once './teacher/function.php';
 </table>
 <br>
 <?php
-	echo $_SESSION['lecture'] . 'のミニッツペーパー';
+	echo $_SESSION['lecture'] . 'のミニッツペーパ';
 ?>
 </body>
 </html>
